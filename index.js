@@ -1,6 +1,6 @@
 const { Client, InteractionType, ButtonStyle, MessageFlags } = require('discord.js');
-const fs = require('fs');
-var readline = require('readline');
+const { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } = require('fs');
+const { createInterface } = require('readline');
 
 const storage = require('./helpers/storage');
 
@@ -8,23 +8,23 @@ const client = new Client({intents:[ 'Guilds' ]}); // Guilds intent is needed to
 
 const commands = new Map();
 
-const rl = readline.createInterface(process.stdin, process.stdout);
+const rl = createInterface(process.stdin, process.stdout);
 
 const defaultConfig = {
   apiKey: 'REPLACEME'
 };
 
-if (!fs.existsSync('./store')) {
-  fs.mkdirSync('./store');
+if (!existsSync('./store')) {
+  mkdirSync('./store');
 }
 
-if (!fs.existsSync('./store/config.json')) {
-  fs.writeFileSync('./store/config.json', JSON.stringify(defaultConfig, null, 2));
+if (!existsSync('./store/config.json')) {
+  writeFileSync('./store/config.json', JSON.stringify(defaultConfig, null, 2));
   console.error('No config file found, a default one has been generated.\nPlease edit the file before attempting to run the bot again.');
   process.exit(69);
 }
 
-const config = JSON.parse(fs.readFileSync('./store/config.json'));
+const config = JSON.parse(readFileSync('./store/config.json'));
 
 storage.loadStorage();
 
@@ -55,7 +55,7 @@ rl.on('line', (command) => {
 async function registerCommands() {
   console.info('Scanning and registering commands....');
 
-  const commandFiles = fs.readdirSync('./commands');
+  const commandFiles = readdirSync('./commands');
 
   const newCommands = [];
 
@@ -71,6 +71,8 @@ async function registerCommands() {
     commands.set(commandName, requiredCommand);
     
     newCommands.push(newCommand);
+
+    console.info('Found command: ' + commandName);
   }
 
   try {
