@@ -1,6 +1,6 @@
 {
   "name": "alrg-discord-bot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The bot used in the Arcade Legacy Rhythm Games Discord server.",
   "main": "index.js",
   "scripts": {
