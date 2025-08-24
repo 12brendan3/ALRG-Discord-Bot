@@ -1,9 +1,10 @@
-const { ApplicationCommandType, PermissionFlagsBits, ApplicationCommandOptionType, MessageFlags } = require("discord.js");
+const { ApplicationCommandType, PermissionFlagsBits, ApplicationCommandOptionType, MessageFlags, InteractionContextType } = require("discord.js");
 
 const storage = require('../helpers/storage');
 
 const commandInfo = {
   type: ApplicationCommandType.ChatInput,
+  contexts: [ InteractionContextType.Guild ],
   description: 'Allows roles to be removed from the roles commands.',
   defaultMemberPermissions: PermissionFlagsBits.Administrator,
   options: [

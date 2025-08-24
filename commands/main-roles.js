@@ -1,9 +1,10 @@
-const { ApplicationCommandType, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require("discord.js");
+const { ApplicationCommandType, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags, InteractionContextType } = require("discord.js");
 
 const storage = require('../helpers/storage');
 
 const commandInfo = {
   type: ApplicationCommandType.ChatInput,
+  contexts: [ InteractionContextType.Guild ],
   description: 'Provides a menu to opt into a main role.'
 };
 
